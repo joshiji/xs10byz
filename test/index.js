@@ -1,15 +1,15 @@
 process.env.NODE_ENV = 'test'
 
 var tape = require('tape')
-var map = require('map-async')
-var servertest = require('servertest')
+var map = require('map-limit')
+var servertest = require('dg-servertest')
 var querystring = require('querystring')
 
 var buyers = require('./buyers.json')
 var server = require('../lib/server')()
 
 tape('should add buyers', function (t) {
-  map(buyers, addBuyer, function (err) {
+  map(buyers, 1, addBuyer, function (err) {
     t.ifError(err, 'should not error')
     t.end()
   })
@@ -37,7 +37,7 @@ tape('should not add invalid buyer', function (t) {
 })
 
 tape('should get buyers', function (t) {
-  map(buyers, getBuyer, function (err) {
+  map(buyers, 1, getBuyer, function (err) {
     t.ifError(err, 'should not error')
     t.end()
   })
@@ -66,7 +66,7 @@ tape('should route traffic', function (t) {
     'http://1.a.com'
   ]
 
-  map(requests, routeTraffic, function (err, routes) {
+  map(requests, 1, routeTraffic, function (err, routes) {
     t.ifError(err, 'should not error')
     t.deepEqual(routes, expected, 'routes should match')
     t.end()
