@@ -16,7 +16,12 @@
     "tape": "^4.6.3"
   },
   "dependencies": {
-    "redis": "2.7.1"
+    "body": "^5.1.0",
+    "corsify": "^2.1.0",
+    "http-hash-router": "^2.0.1",
+    "jsonschema": "^1.2.4",
+    "redis": "2.7.1",
+    "send-data": "^8.0.0"
   },
   "directories": {
     "test": "test"
